@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Shattered Pixel Dungeon
+GenericName=Shattered Pixel Dungeon
+Comment=LibGDX port of the awesome Pixel Dungeon
+Exec=shattered-pixel-dungeon
+Icon=${SNAP}/meta/gui/shattered-pixel-dungeon.png
+Terminal=false
+Type=Application
+Categories=Game;
+

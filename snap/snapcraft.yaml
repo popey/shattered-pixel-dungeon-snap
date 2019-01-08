@@ -1,0 +1,95 @@
+name: shattered-pixel-dungeon
+version: '0.7.1b'
+summary: LibGDX port of the awesome Pixel Dungeon
+description: |
+  Shattered Pixel Dungeon is a Roguelike RPG, with pixel art graphics and lots
+  of variety and replayability. Every game is unique, with four different 
+  playable characters, randomized levels and enemies, and over 150 items to 
+  collect and use. The game is simple to get into, but has lots of depth. 
+  Strategy is required if you want to win! 
+base: core18
+
+grade: stable
+confinement: strict
+
+apps:
+  shattered-pixel-dungeon:
+    command: desktop-launch $SNAP/bin/launcher
+    plugs:
+    - network
+    - network-bind
+    - opengl
+    - home
+    - joystick
+    - pulseaudio
+    - desktop
+    - wayland
+    - x11
+    - desktop-legacy
+    - unity7
+    environment:
+      XDG_DATA_HOME: "$SNAP/usr/share"
+      JAVA_HOME: "$SNAP/usr/lib/jvm/java-8-openjdk-amd64/jre/"
+      PATH: "$SNAP/bin:$PATH:$SNAP/usr/lib/jvm/java-8-openjdk-amd64/jre/bin"
+      GVFS_MOUNTABLE_DIR: "$SNAP/usr/share/gvfs/mounts"
+      GVFS_MONITOR_DIR: "$SNAP/usr/share/gvfs/remote-volume-monitors"
+      LD_LIBRARY_PATH: "$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio"
+
+parts:
+  shattered-pixel-dungeon:
+    after: [desktop-gtk2]
+    plugin: nil
+    override-build: |
+      wget -O $SNAPCRAFT_PART_INSTALL/ShatteredPD.Desktop.v$SNAPCRAFT_PROJECT_VERSION.jar https://github.com/00-Evan/shattered-pixel-dungeon-gdx/releases/download/v$SNAPCRAFT_PROJECT_VERSION/ShatteredPD.Desktop.v$SNAPCRAFT_PROJECT_VERSION.jar
+    build-packages:
+      - wget
+    stage-packages:
+      - openjdk-8-jre
+      - ca-certificates
+      - ca-certificates-java
+      - libpulse0
+      - libpulsedsp
+      - libxxf86vm1
+      - libgl1-mesa-dri
+      - libglu1-mesa
+      - libgl1-mesa-glx
+      - libgles2-mesa
+      - x11-xserver-utils
+    prime:
+      - -usr/lib/jvm/*/jre/lib/security/cacerts
+  launcher:
+    plugin: dump
+    source: snap/local
+    organize:
+      'launcher': 'bin/'
+      'padsp': 'bin/'
+      'sensible-browser': 'bin/'
+      'usr/lib/*/gvfs/*.so': 'usr/lib'
+      'usr/bin/xprop': 'usr/bin/xprop.disabled'
+  desktop-gtk2:
+    build-packages:
+      - build-essential
+      - libgtk2.0-dev
+    make-parameters:
+      - FLAVOR=gtk2
+    plugin: make
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: gtk
+    stage-packages:
+      - libxkbcommon0
+      - ttf-ubuntu-font-family
+      - dmz-cursor-theme
+      - light-themes
+      - adwaita-icon-theme
+      - gnome-themes-standard
+      - shared-mime-info
+      - libgtk2.0-0
+      - libgdk-pixbuf2.0-0
+      - libglib2.0-bin
+      - libgtk2.0-bin
+      - unity-gtk2-module
+      - locales-all
+      - libappindicator1
+      - xdg-user-dirs
+      - ibus-gtk
+      - libibus-1.0-5
