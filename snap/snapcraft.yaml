@@ -41,6 +41,7 @@ parts:
     plugin: nil
     override-build: |
       wget -O $SNAPCRAFT_PART_INSTALL/ShatteredPD.Desktop.v$SNAPCRAFT_PROJECT_VERSION.jar https://github.com/00-Evan/shattered-pixel-dungeon-gdx/releases/download/v$SNAPCRAFT_PROJECT_VERSION/ShatteredPD.Desktop.v$SNAPCRAFT_PROJECT_VERSION.jar
+      rm $SNAPCRAFT_PART_INSTALL/usr/lib/jvm/*/jre/lib/security/cacerts
     build-packages:
       - wget
     stage-packages:
@@ -55,8 +56,6 @@ parts:
       - libgl1-mesa-glx
       - libgles2-mesa
       - x11-xserver-utils
-    prime:
-      - -usr/lib/jvm/*/jre/lib/security/cacerts
   launcher:
     plugin: dump
     source: snap/local
