@@ -56,7 +56,7 @@ parts:
       - libgles2-mesa
       - x11-xserver-utils
     prime:
-        - -usr/lib/jvm/java-*/jre/lib/security/cacerts
+        - -usr/lib/jvm/java-*/jre/security/cacerts
   launcher:
     plugin: dump
     source: snap/local
