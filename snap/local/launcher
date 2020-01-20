@@ -2,23 +2,9 @@
 
 JAVA_BIN="$JAVA_HOME/bin/java"
 
-case "$SNAP_ARCH" in
-	"amd64") ARCH='x86_64-linux-gnu'
-	;;
-	"i386") ARCH='i386-linux-gnu'
-	;;
-	"armhf") ARCH='arm-linux-gnueabihf'
-	;;
-	*)
-		echo "Unsupported architecture for this app build"
-		exit 1
-	;;
-esac
-
 export DESKTOP_SESSION=gnome
 export XDG_SESSION_DESKTOP=gnome
 export XDG_CURRENT_DESKTOP=GNOME
-
 
 # Fix font / theme
 export _JAVA_OPTIONS='-Dsun.java2d.xrender=true -Dprism.useFontConfig=false -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
