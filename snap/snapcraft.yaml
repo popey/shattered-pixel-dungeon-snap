@@ -1,5 +1,5 @@
 name: shattered-pixel-dungeon
-version: '0.7.5f'
+version: '0.8.0b'
 summary: LibGDX port of the awesome Pixel Dungeon
 description: |
   Shattered Pixel Dungeon is a Roguelike RPG, with pixel art graphics and lots
@@ -40,7 +40,7 @@ parts:
     after: [desktop-gtk2]
     plugin: nil
     override-build: |
-      wget -O $SNAPCRAFT_PART_INSTALL/ShatteredPD.Desktop.v$SNAPCRAFT_PROJECT_VERSION.jar https://github.com/00-Evan/shattered-pixel-dungeon-gdx/releases/download/v$SNAPCRAFT_PROJECT_VERSION/ShatteredPD.Desktop.v$SNAPCRAFT_PROJECT_VERSION.jar
+      wget -O $SNAPCRAFT_PART_INSTALL/ShatteredPD.Desktop.v$SNAPCRAFT_PROJECT_VERSION.jar https://github.com/00-Evan/shattered-pixel-dungeon/releases/download/v$SNAPCRAFT_PROJECT_VERSION/ShatteredPD-v$SNAPCRAFT_PROJECT_VERSION-Desktop.jar
     build-packages:
       - wget
     stage-packages:
