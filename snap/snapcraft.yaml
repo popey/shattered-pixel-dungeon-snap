@@ -36,6 +36,9 @@ apps:
       LD_LIBRARY_PATH: "$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio"
 
 parts:
+  build-trigger:
+    plugin: nil
+    source: https://github.com/00-Evan/shattered-pixel-dungeon.git
   shattered-pixel-dungeon:
     after: [desktop-gtk2]
     plugin: nil
