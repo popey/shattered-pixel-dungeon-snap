@@ -45,7 +45,7 @@ parts:
     override-build: |
       wget --quiet https://api.github.com/repos/00-Evan/shattered-pixel-dungeon/releases -O releases.json
       VERSION=$(jq . releases.json | grep tag_name | cut -d'"' -f4 | sed s'/v//' | head -n 1)
-      JAR_URL=$(grep browser_download releases.json | grep "download/v${VERSION}" | grep jar | cut -d'"' -f4 | tail -n 1)
+      JAR_URL=$(grep browser_download releases.json | grep -P "download/v?${VERSION}" | grep jar | cut -d'"' -f4 | tail -n 1)
       wget -O $SNAPCRAFT_PART_INSTALL/ShatteredPD.Desktop.v$VERSION.jar $JAR_URL
       snapcraftctl set-version "$VERSION"
     build-packages:
