@@ -29,8 +29,8 @@ apps:
     - unity7
     environment:
       XDG_DATA_HOME: "$SNAP/usr/share"
-      JAVA_HOME: "$SNAP/usr/lib/jvm/java-8-openjdk-amd64/jre/"
-      PATH: "$SNAP/bin:$PATH:$SNAP/usr/lib/jvm/java-8-openjdk-amd64/jre/bin"
+      JAVA_HOME: "$SNAP/usr/lib/jvm/java-11-openjdk-amd64/jre/"
+      PATH: "$SNAP/bin:$PATH:$SNAP/usr/lib/jvm/java-11-openjdk-amd64/jre/bin"
       GVFS_MOUNTABLE_DIR: "$SNAP/usr/share/gvfs/mounts"
       GVFS_MONITOR_DIR: "$SNAP/usr/share/gvfs/remote-volume-monitors"
       LD_LIBRARY_PATH: "$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio"
@@ -52,7 +52,7 @@ parts:
       - wget
       - jq
     stage-packages:
-      - openjdk-8-jre
+      - openjdk-11-jre
       - ca-certificates
       - ca-certificates-java
       - libpulse0
@@ -65,8 +65,9 @@ parts:
       - x11-xserver-utils
       - liblwjgl-java
     prime:
-        - -usr/lib/jvm/java-*/lib/security/cacerts
-        - -usr/lib/jvm/java-*/jre/lib/security/cacerts
+        - -usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts
+        - -usr/lib/jvm/java-11-openjdk-amd64/lib/security/blacklisted.certs
+        #- -usr/lib/jvm/java-*/jre/lib/security/cacerts
   launcher:
     plugin: dump
     source: snap/local
