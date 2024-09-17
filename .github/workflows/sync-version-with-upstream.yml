@@ -17,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🔄 Sync version with upstream
-        uses: snapcrafters/ci/sync-version@master
+        uses: snapcrafters/ci/sync-version@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
+          branch: master
           bot-email: alan@popey.com
           bot-name: popeybot
           update-script: |
