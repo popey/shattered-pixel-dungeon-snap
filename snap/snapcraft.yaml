@@ -59,7 +59,7 @@ parts:
   shattered-pixel-dungeon:
     after: [alsa-pulseaudio]
     plugin: dump
-    source: https://github.com/00-Evan/shattered-pixel-dungeon/releases/download/$SNAPCRAFT_PROJECT_VERSION/ShatteredPD-v$SNAPCRAFT_PROJECT_VERSION-Linux.zip
+    source: https://github.com/00-Evan/shattered-pixel-dungeon/releases/download/$SNAPCRAFT_PROJECT_VERSION/ShatteredPD-$SNAPCRAFT_PROJECT_VERSION-Linux.zip
     override-build: |
       craftctl default
       mv "$SNAPCRAFT_PART_INSTALL/bin/Shattered Pixel Dungeon" "$SNAPCRAFT_PART_INSTALL/bin/Shattered_Pixel_Dungeon"
