@@ -70,3 +70,5 @@ parts:
     override-build: |
       mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
       wget -O "$SNAPCRAFT_PART_INSTALL/bin/Shattered_Pixel_Dungeon.jar" "https://github.com/00-Evan/shattered-pixel-dungeon/releases/download/$SNAPCRAFT_PROJECT_VERSION/ShatteredPD-$SNAPCRAFT_PROJECT_VERSION-Java.jar"
+    prime:
+      - -usr/lib/jvm/java-*/lib/security/cacerts
