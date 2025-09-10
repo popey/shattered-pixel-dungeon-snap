@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# java
+export JAVA_HOME=$SNAP/usr/lib/jvm/java-21-openjdk-$SNAP_ARCH
+export PATH=$JAVA_HOME/bin:$JAVA_HOME/bin:$PATH
+
+java -jar $SNAP/bin/Shattered_Pixel_Dungeon.jar

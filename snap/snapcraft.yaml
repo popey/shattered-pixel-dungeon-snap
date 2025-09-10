@@ -3,10 +3,10 @@ version: "v3.2.3"
 summary: LibGDX port of the awesome Pixel Dungeon
 description: |
   Shattered Pixel Dungeon is a Roguelike RPG, with pixel art graphics and lots
-  of variety and replayability. Every game is unique, with four different 
-  playable characters, randomized levels and enemies, and over 150 items to 
-  collect and use. The game is simple to get into, but has lots of depth. 
-  Strategy is required if you want to win! 
+  of variety and replayability. Every game is unique, with four different
+  playable characters, randomized levels and enemies, and over 150 items to
+  collect and use. The game is simple to get into, but has lots of depth.
+  Strategy is required if you want to win!
 base: core22
 compression: lzo
 
@@ -15,6 +15,7 @@ confinement: strict
 
 architectures:
   - build-on: amd64
+  - build-on: arm64
 
 layout:
   /usr/lib/$CRAFT_ARCH_TRIPLET/alsa-lib:
@@ -23,7 +24,7 @@ layout:
 apps:
   shattered-pixel-dungeon:
     extensions: [ gnome ]
-    command: "bin/Shattered_Pixel_Dungeon"
+    command: "bin/launch"
     environment:
       ALSA_CONFIG_PATH: "$SNAP/etc/asound.conf"
     plugs:
@@ -37,6 +38,9 @@ apps:
       - removable-media
 
 parts:
+  launcher:
+    plugin: dump
+    source: snap/local
   alsa-pulseaudio:
     plugin: dump
     source: .
@@ -57,10 +61,12 @@ parts:
       }
       EOF
   shattered-pixel-dungeon:
-    after: [alsa-pulseaudio]
-    plugin: dump
-    source: https://github.com/00-Evan/shattered-pixel-dungeon/releases/download/$SNAPCRAFT_PROJECT_VERSION/ShatteredPD-$SNAPCRAFT_PROJECT_VERSION-Linux.zip
+    after: [alsa-pulseaudio,launcher]
+    build-packages:
+      - wget
+    stage-packages:
+      - openjdk-21-jre-headless
+    plugin: nil
     override-build: |
-      craftctl default
-      mv "$SNAPCRAFT_PART_INSTALL/bin/Shattered Pixel Dungeon" "$SNAPCRAFT_PART_INSTALL/bin/Shattered_Pixel_Dungeon"
-      mv "$SNAPCRAFT_PART_INSTALL/lib/app/Shattered Pixel Dungeon.cfg" "$SNAPCRAFT_PART_INSTALL/lib/app/Shattered_Pixel_Dungeon.cfg"
+      mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
+      wget -O "$SNAPCRAFT_PART_INSTALL/bin/Shattered_Pixel_Dungeon.jar" "https://github.com/00-Evan/shattered-pixel-dungeon/releases/download/$SNAPCRAFT_PROJECT_VERSION/ShatteredPD-$SNAPCRAFT_PROJECT_VERSION-Java.jar"
