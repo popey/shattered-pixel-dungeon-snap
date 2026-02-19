@@ -1,11 +1,11 @@
-name: 🧪 Test snap builds on x86_64
+name: 🧪 Test snap can be built
 
 on:
-  workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -32,7 +32,7 @@ jobs:
           isClassic: 'false'
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: 'snap'
-          path: ${{ steps.snapcraft.outputs.snap}}
+          name: snap
+          path: ${{ steps.snapcraft.outputs.snap }}
