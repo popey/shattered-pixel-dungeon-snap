@@ -72,3 +72,17 @@ parts:
     override-build: |
       mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
       wget -O "$SNAPCRAFT_PART_INSTALL/bin/Shattered_Pixel_Dungeon.jar" "https://github.com/00-Evan/shattered-pixel-dungeon/releases/download/$SNAPCRAFT_PROJECT_VERSION/ShatteredPD-$SNAPCRAFT_PROJECT_VERSION-Java.jar"
+    override-prime: |
+      craftctl default
+      # Replace external symlinks with actual file copies so the snap passes store review.
+      # openjdk on core22 ships cacerts and blacklisted.certs as symlinks into /etc,
+      # which the store linter rejects as external symlinks.
+      for link in usr/lib/jvm/java-*/lib/security/cacerts usr/lib/jvm/java-*/lib/security/blacklisted.certs; do
+        if [ -L "$link" ]; then
+          target=$(readlink -f "$link" 2>/dev/null || true)
+          if [ -f "$target" ]; then
+            rm "$link"
+            cp "$target" "$link"
+          fi
+        fi
+      done
