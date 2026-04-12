@@ -64,10 +64,10 @@ parts:
     after: [alsa-pulseaudio,launcher]
     build-packages:
       - wget
-    stage-packages:
-      - openjdk-21-jre-headless
       - ca-certificates
       - ca-certificates-java
+    stage-packages:
+      - openjdk-21-jre-headless
     plugin: nil
     override-build: |
       mkdir -p "$SNAPCRAFT_PART_INSTALL/bin"
@@ -75,17 +75,16 @@ parts:
     override-prime: |
       craftctl default
       # openjdk ships cacerts and blacklisted.certs as symlinks pointing into
-      # /etc outside the snap, which the store linter rejects. Replace each
-      # symlink with a real copy of the file from within the prime tree.
+      # /etc outside the snap, which the store linter rejects. ca-certificates-java
+      # is a post-install hook package so its files live on the host, not in the
+      # prime tree. Find all such external symlinks and replace them with real
+      # copies sourced directly from the host filesystem.
       find usr/lib/jvm -name "cacerts" -o -name "blacklisted.certs" | while read link; do
         if [ -L "$link" ]; then
-          # Resolve relative to the prime directory, not the host filesystem
-          target=$(readlink "$link")
-          # Strip leading / to make it relative to prime tree
-          target_rel="${target#/}"
-          if [ -f "$target_rel" ]; then
+          target=$(readlink -f "$link")
+          if [ -f "$target" ]; then
             rm "$link"
-            cp "$target_rel" "$link"
+            cp "$target" "$link"
           fi
         fi
       done
