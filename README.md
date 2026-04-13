@@ -1,4 +1,5 @@
 # shattered-pixel-dungeon-snap
+[![shattered-pixel-dungeon](https://github.com/popey/shattered-pixel-dungeon-snap/actions/workflows/test-snap-can-build.yml/badge.svg)](https://github.com/popey/shattered-pixel-dungeon-snap/actions)
 
 [![shattered-pixel-dungeon](https://snapcraft.io/shattered-pixel-dungeon/badge.svg)](https://snapcraft.io/shattered-pixel-dungeon)
 [![shattered-pixel-dungeon](https://snapcraft.io/shattered-pixel-dungeon/trending.svg?name=0)](https://snapcraft.io/shattered-pixel-dungeon)
